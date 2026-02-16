@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Al-Malaki Restaurant | المطعم الملكي</title>
+    <title>Al Sultana | مطعم السلطانة - Luxury Arabic Restaurant</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Lato:wght@300;400;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
-    
     <style>
         * {
             margin: 0;
@@ -15,329 +14,309 @@
         }
 
         :root {
-            --primary-gold: #D4AF37;
-            --dark-bg: #0a0a0a;
-            --light-gold: #F4E4C1;
-            --deep-green: #1a4d2e;
-            --text-light: #f5f5f5;
-            --text-dark: #2c2c2c;
+            --primary-color: #c9a961;
+            --secondary-color: #1a1a1a;
+            --text-color: #333;
+            --light-bg: #f8f8f8;
+            --white: #ffffff;
+            --shadow: 0 5px 15px rgba(0,0,0,0.1);
+            --gold-gradient: linear-gradient(135deg, #c9a961 0%, #d4af37 100%);
         }
 
         body {
-            font-family: 'Lato', sans-serif;
-            background-color: var(--dark-bg);
-            color: var(--text-light);
+            font-family: 'Lato', 'Cairo', sans-serif;
             line-height: 1.6;
+            color: var(--text-color);
             overflow-x: hidden;
         }
 
-        body[dir="rtl"] {
-            font-family: 'Amiri', serif;
+        body.rtl {
+            direction: rtl;
         }
 
-        /* Arabic Pattern Background */
-        .pattern-bg {
-            background-image: 
-                repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(212, 175, 55, 0.03) 35px, rgba(212, 175, 55, 0.03) 70px);
-        }
-
-        /* Navbar */
-        .navbar {
+        /* Islamic Pattern Background */
+        body::before {
+            content: '';
             position: fixed;
             top: 0;
+            left: 0;
             width: 100%;
-            background: rgba(10, 10, 10, 0.95);
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(201,169,97,.03) 35px, rgba(201,169,97,.03) 70px);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Language Toggle */
+        .lang-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+        }
+
+        .lang-toggle button {
+            background: var(--gold-gradient);
+            color: var(--white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .lang-toggle button:hover {
+            transform: scale(1.05);
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(26, 26, 26, 0.95);
             backdrop-filter: blur(10px);
-            padding: 1rem 5%;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
             z-index: 1000;
-            transition: all 0.3s ease;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            transition: all 0.3s;
         }
 
         .navbar.scrolled {
-            background: rgba(10, 10, 10, 0.98);
-            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
 
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
+        .navbar .container {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
+        .nav-brand {
+            color: var(--white);
+        }
+
         .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            color: var(--primary-gold);
-            font-weight: 700;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo i {
+            font-family: 'Playfair Display', 'Cairo', serif;
             font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 0;
         }
 
-        .nav-links {
+        .tagline {
+            font-size: 0.8rem;
+            color: #ccc;
+            margin-top: -5px;
+        }
+
+        .nav-menu {
             display: flex;
             list-style: none;
-            gap: 2.5rem;
+            gap: 2rem;
             align-items: center;
         }
 
-        .nav-links a {
-            color: var(--text-light);
+        .nav-menu a {
+            color: var(--white);
             text-decoration: none;
-            font-weight: 400;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary-gold);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary-gold);
-        }
-
-        .lang-switch {
-            background: transparent;
-            border: 1px solid var(--primary-gold);
-            color: var(--primary-gold);
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: all 0.3s ease;
+            transition: color 0.3s;
             font-weight: 500;
         }
 
-        .lang-switch:hover {
-            background: var(--primary-gold);
-            color: var(--dark-bg);
+        .nav-menu a:hover {
+            color: var(--primary-color);
+        }
+
+        .admin-link {
+            color: var(--primary-color) !important;
         }
 
         .menu-toggle {
             display: none;
-            flex-direction: column;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
             cursor: pointer;
-            gap: 5px;
-        }
-
-        .menu-toggle span {
-            width: 25px;
-            height: 3px;
-            background: var(--primary-gold);
-            transition: all 0.3s ease;
         }
 
         /* Hero Section */
         .hero {
             height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)), 
-                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%231a4d2e" width="1200" height="800"/><circle cx="600" cy="400" r="200" fill="%23D4AF37" opacity="0.1"/><text x="600" y="420" font-size="120" fill="%23D4AF37" opacity="0.3" text-anchor="middle" font-family="serif">المطعم</text></svg>');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=1600') center/cover;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
             position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.1), transparent);
-            animation: pulse 4s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
+            text-align: center;
+            color: var(--white);
         }
 
         .hero-content {
-            z-index: 1;
+            z-index: 2;
             animation: fadeInUp 1s ease-out;
         }
 
-        .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 4.5rem;
-            color: var(--primary-gold);
+        .hero-title {
+            font-family: 'Playfair Display', 'Cairo', serif;
+            font-size: 4rem;
             margin-bottom: 1rem;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+            color: var(--primary-color);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
         }
 
-        .hero .arabic-title {
-            font-family: 'Amiri', serif;
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .hero p {
+        .hero-subtitle {
             font-size: 1.5rem;
             margin-bottom: 2rem;
-            color: var(--light-gold);
         }
 
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            background: var(--primary-gold);
-            color: var(--dark-bg);
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 15px 40px;
             text-decoration: none;
-            border-radius: 50px;
-            font-weight: 700;
-            transition: all 0.3s ease;
-            border: 2px solid var(--primary-gold);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-block;
         }
 
-        .cta-button:hover {
-            background: transparent;
-            color: var(--primary-gold);
+        .btn-primary {
+            background: var(--gold-gradient);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 10px 20px rgba(201,169,97,0.3);
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--primary-color);
         }
 
-        /* Section Styles */
+        .btn-secondary:hover {
+            background: var(--primary-color);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator i {
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        /* Sections */
         section {
-            padding: 5rem 5%;
-            max-width: 1400px;
-            margin: 0 auto;
+            padding: 80px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
         }
 
         .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            text-align: center;
-            color: var(--primary-gold);
+            font-family: 'Playfair Display', 'Cairo', serif;
+            font-size: 2.5rem;
+            color: var(--secondary-color);
             margin-bottom: 1rem;
-            position: relative;
         }
 
-        .section-title::after {
-            content: '✦';
-            display: block;
-            text-align: center;
-            font-size: 1.5rem;
-            margin-top: 1rem;
-            color: var(--primary-gold);
-        }
-
-        .section-subtitle {
-            text-align: center;
-            color: var(--light-gold);
-            margin-bottom: 3rem;
-            font-size: 1.1rem;
+        .title-divider {
+            width: 100px;
+            height: 3px;
+            background: var(--gold-gradient);
+            margin: 0 auto;
         }
 
         /* About Section */
-        .about {
-            background: var(--dark-bg);
+        .about-section {
+            background: var(--white);
         }
 
         .about-content {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1.5fr 1fr;
             gap: 3rem;
             align-items: center;
         }
 
-        .about-text {
-            animation: fadeInLeft 1s ease-out;
-        }
-
-        .about-text h3 {
-            color: var(--primary-gold);
-            font-size: 2rem;
+        .about-text .lead {
+            font-size: 1.2rem;
+            color: var(--primary-color);
             margin-bottom: 1rem;
-            font-family: 'Playfair Display', serif;
         }
 
         .about-text p {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             line-height: 1.8;
-            color: var(--light-gold);
         }
 
         .chef-card {
-            background: rgba(212, 175, 55, 0.05);
+            background: var(--light-bg);
             padding: 2rem;
             border-radius: 10px;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            animation: fadeInRight 1s ease-out;
+            text-align: center;
+            box-shadow: var(--shadow);
         }
 
-        .chef-card h4 {
-            color: var(--primary-gold);
-            font-size: 1.5rem;
+        .chef-image {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 1rem;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid var(--primary-color);
+        }
+
+        .chef-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .chef-card h3 {
+            color: var(--secondary-color);
             margin-bottom: 0.5rem;
         }
 
-        /* Menu Section */
-        .menu {
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-        }
-
-        .menu-categories {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .category-btn {
-            padding: 0.8rem 2rem;
-            background: transparent;
-            border: 2px solid var(--primary-gold);
-            color: var(--primary-gold);
-            cursor: pointer;
-            border-radius: 30px;
-            transition: all 0.3s ease;
+        .chef-title {
+            color: var(--primary-color);
             font-weight: 600;
+            margin-bottom: 1rem;
         }
 
-        .category-btn:hover,
-        .category-btn.active {
-            background: var(--primary-gold);
-            color: var(--dark-bg);
+        .chef-desc {
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Menu Section */
+        .menu-section {
+            background: var(--light-bg);
         }
 
         .menu-grid {
@@ -346,130 +325,66 @@
             gap: 2rem;
         }
 
-        .menu-item {
-            background: rgba(212, 175, 55, 0.05);
-            padding: 1.5rem;
-            border-radius: 15px;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            transition: all 0.3s ease;
-            animation: fadeIn 0.6s ease-out;
-        }
-
-        .menu-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.2);
-            border-color: var(--primary-gold);
-        }
-
-        .menu-item-image {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(135deg, #D4AF37 0%, #F4E4C1 100%);
+        .menu-card {
+            background: var(--white);
             border-radius: 10px;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            color: var(--dark-bg);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
         }
 
-        .menu-item h3 {
-            color: var(--primary-gold);
-            margin-bottom: 0.5rem;
-            font-size: 1.4rem;
+        .menu-card:hover {
+            transform: translateY(-10px);
         }
 
-        .menu-item .arabic-name {
-            font-family: 'Amiri', serif;
-            color: var(--light-gold);
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .menu-item .price {
-            color: var(--primary-gold);
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin: 1rem 0;
-        }
-
-        .menu-item p {
-            color: var(--light-gold);
-            margin-bottom: 1rem;
-        }
-
-        .order-btn {
+        .menu-card img {
             width: 100%;
-            padding: 0.8rem;
-            background: var(--primary-gold);
-            color: var(--dark-bg);
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 700;
-            transition: all 0.3s ease;
+            height: 250px;
+            object-fit: cover;
         }
 
-        .order-btn:hover {
-            background: var(--light-gold);
-            transform: scale(1.05);
+        .menu-card-content {
+            padding: 1.5rem;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        /* Cart Section */
-        .cart-icon {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background: var(--primary-gold);
-            border-radius: 50%;
+        .menu-card-header {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
-            z-index: 999;
-            transition: all 0.3s ease;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
         }
 
-        .cart-icon:hover {
-            transform: scale(1.1);
+        .menu-card h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--secondary-color);
+            font-size: 1.3rem;
         }
 
-        .cart-icon i {
+        .menu-card .arabic-name {
+            font-family: 'Cairo', sans-serif;
+            color: var(--primary-color);
+            font-size: 1rem;
+            margin-top: 0.3rem;
+        }
+
+        .menu-card .price {
+            color: var(--primary-color);
             font-size: 1.5rem;
-            color: var(--dark-bg);
+            font-weight: 700;
         }
 
-        .cart-count {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: #e74c3c;
-            color: white;
-            border-radius: 50%;
-            width: 25px;
-            height: 25px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            font-weight: 700;
+        .menu-card p {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.6;
         }
 
         /* Contact Section */
-        .contact {
-            background: var(--dark-bg);
+        .contact-section {
+            background: var(--white);
         }
 
-        .contact-grid {
+        .contact-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 3rem;
@@ -481,65 +396,86 @@
             gap: 2rem;
         }
 
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            padding: 1.5rem;
-            background: rgba(212, 175, 55, 0.05);
+        .info-card {
+            background: var(--light-bg);
+            padding: 2rem;
             border-radius: 10px;
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            text-align: center;
+            box-shadow: var(--shadow);
         }
 
-        .contact-item i {
-            font-size: 2rem;
-            color: var(--primary-gold);
+        .info-card i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
         }
 
-        .contact-item h4 {
-            color: var(--primary-gold);
+        .info-card h3 {
+            color: var(--secondary-color);
             margin-bottom: 0.5rem;
         }
 
-        .map-container {
-            border-radius: 15px;
-            overflow: hidden;
-            height: 400px;
-            border: 2px solid var(--primary-gold);
+        .whatsapp-btn {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 10px 20px;
+            background: #25d366;
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 25px;
+            transition: transform 0.3s;
         }
 
-        .map-container iframe {
-            width: 100%;
-            height: 100%;
+        .whatsapp-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .map-container {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
         }
 
         /* Footer */
         .footer {
-            background: #000;
-            padding: 3rem 5%;
-            border-top: 2px solid var(--primary-gold);
+            background: var(--secondary-color);
+            color: var(--white);
+            padding: 3rem 0 1rem;
         }
 
         .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
+            margin-bottom: 2rem;
         }
 
-        .footer-section h3 {
-            color: var(--primary-gold);
+        .footer-col h3, .footer-col h4 {
+            color: var(--primary-color);
             margin-bottom: 1rem;
-            font-family: 'Playfair Display', serif;
         }
 
-        .footer-section p,
-        .footer-section a {
-            color: var(--light-gold);
-            text-decoration: none;
-            display: block;
+        .footer-col p {
+            line-height: 1.8;
+            color: #ccc;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
             margin-bottom: 0.5rem;
+        }
+
+        .footer-col a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-col a:hover {
+            color: var(--primary-color);
         }
 
         .social-links {
@@ -550,259 +486,95 @@
         .social-links a {
             width: 40px;
             height: 40px;
-            background: var(--primary-gold);
-            color: var(--dark-bg);
+            background: var(--primary-color);
+            color: var(--white);
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            transition: all 0.3s ease;
+            transition: transform 0.3s;
         }
 
         .social-links a:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+            transform: scale(1.1);
         }
 
-        .copyright {
+        .footer-bottom {
             text-align: center;
-            margin-top: 2rem;
             padding-top: 2rem;
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
-            color: var(--light-gold);
+            border-top: 1px solid #333;
+            color: #999;
         }
 
-        /* Page Container */
-        .page {
-            display: none;
-            min-height: 100vh;
-            padding-top: 80px;
+        .text-center {
+            text-align: center;
         }
 
-        .page.active {
-            display: block;
-        }
-
-        /* Order Page */
-        .order-container {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 2rem;
-            padding: 2rem 5%;
-        }
-
-        .cart-items {
-            background: rgba(212, 175, 55, 0.05);
-            padding: 2rem;
-            border-radius: 15px;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-        }
-
-        .cart-item {
-            display: flex;
-            gap: 1rem;
-            padding: 1rem;
-            background: rgba(0,0,0,0.3);
-            margin-bottom: 1rem;
-            border-radius: 10px;
-            align-items: center;
-        }
-
-        .cart-item-image {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #D4AF37 0%, #F4E4C1 100%);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-        }
-
-        .cart-item-details {
-            flex: 1;
-        }
-
-        .quantity-controls {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .quantity-controls button {
-            width: 30px;
-            height: 30px;
-            background: var(--primary-gold);
-            color: var(--dark-bg);
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 700;
-        }
-
-        .remove-btn {
-            background: #e74c3c;
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .cart-summary {
-            background: rgba(212, 175, 55, 0.05);
-            padding: 2rem;
-            border-radius: 15px;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            height: fit-content;
-            position: sticky;
-            top: 100px;
-        }
-
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-        }
-
-        .summary-total {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary-gold);
-        }
-
-        /* Payment Page */
-        .payment-methods {
-            display: grid;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .payment-method {
-            padding: 1.5rem;
-            background: rgba(212, 175, 55, 0.05);
-            border: 2px solid rgba(212, 175, 55, 0.2);
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .payment-method:hover,
-        .payment-method.active {
-            border-color: var(--primary-gold);
-            background: rgba(212, 175, 55, 0.1);
-        }
-
-        .payment-form {
-            background: rgba(212, 175, 55, 0.05);
-            padding: 2rem;
-            border-radius: 15px;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            color: var(--primary-gold);
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 1rem;
-            background: rgba(0,0,0,0.3);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 5px;
-            color: var(--text-light);
-            font-size: 1rem;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: var(--primary-gold);
-        }
-
-        /* Admin Panel */
-        .admin-panel {
-            background: rgba(212, 175, 55, 0.05);
-            padding: 2rem;
-            border-radius: 15px;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            margin: 2rem 5%;
-        }
-
-        .admin-form {
-            display: grid;
-            gap: 1rem;
-            max-width: 600px;
-        }
-
-        .menu-list {
-            margin-top: 2rem;
-        }
-
-        .menu-list-item {
-            background: rgba(0,0,0,0.3);
-            padding: 1rem;
-            margin-bottom: 1rem;
-            border-radius: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .delete-btn {
-            background: #e74c3c;
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .menu-toggle {
-                display: flex;
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
             }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-            .nav-links {
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-15px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .animate-fade-in-delay {
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .animate-fade-in-delay-2 {
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .nav-menu {
                 position: fixed;
-                top: 70px;
                 left: -100%;
+                top: 70px;
                 flex-direction: column;
-                background: rgba(10, 10, 10, 0.98);
+                background: rgba(26, 26, 26, 0.98);
                 width: 100%;
-                padding: 2rem;
-                transition: all 0.3s ease;
+                padding: 2rem 0;
+                transition: left 0.3s;
+                align-items: center;
             }
 
-            .nav-links.active {
+            .nav-menu.active {
                 left: 0;
             }
 
-            .hero h1 {
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero-title {
                 font-size: 2.5rem;
             }
 
-            .hero .arabic-title {
-                font-size: 2rem;
-            }
-
             .about-content,
-            .contact-grid,
-            .order-container {
+            .contact-content {
                 grid-template-columns: 1fr;
-            }
-
-            .section-title {
-                font-size: 2rem;
             }
 
             .menu-grid {
@@ -810,864 +582,312 @@
             }
         }
 
-        /* Scroll Animations */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease-out;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        @keyframes fadeInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-30px);
+        @media (max-width: 600px) {
+            .hero-title {
+                font-size: 2rem;
             }
-            to {
-                opacity: 1;
-                transform: translateX(0);
+
+            .hero-subtitle {
+                font-size: 1.1rem;
             }
-        }
 
-        @keyframes fadeInRight {
-            from {
-                opacity: 0;
-                transform: translateX(30px);
+            .hero-buttons {
+                flex-direction: column;
             }
-            to {
-                opacity: 1;
-                transform: translateX(0);
+
+            .section-title {
+                font-size: 2rem;
             }
-        }
-
-        /* Loading Animation */
-        .loading {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 2rem;
-            color: var(--primary-gold);
-            z-index: 9999;
-        }
-
-        /* Success Message */
-        .success-message {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(212, 175, 55, 0.95);
-            padding: 3rem;
-            border-radius: 15px;
-            text-align: center;
-            z-index: 9999;
-            color: var(--dark-bg);
-        }
-
-        .success-message.show {
-            display: block;
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        .success-message h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .success-message i {
-            font-size: 4rem;
-            color: #27ae60;
-            margin-bottom: 1rem;
         }
     </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="#" class="logo" onclick="showPage('home')">
-                <i class="fas fa-crown"></i>
-                <span class="logo-text">Al-Malaki</span>
-            </a>
-            <ul class="nav-links">
-                <li><a href="#" onclick="showPage('home')" class="nav-link">Home</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#menu" class="nav-link">Menu</a></li>
-                <li><a href="#" onclick="showPage('full-menu')" class="nav-link">Full Menu</a></li>
-                <li><a href="#" onclick="showPage('order')" class="nav-link">Order Online</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-                <li><a href="#" onclick="showPage('admin')" class="nav-link">Admin</a></li>
-                <li><button class="lang-switch" onclick="toggleLanguage()">العربية</button></li>
-            </ul>
-            <div class="menu-toggle" onclick="toggleMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
+    <!-- Language Toggle -->
+    <div class="lang-toggle">
+        <button id="langBtn" onclick="toggleLanguage()">
+            <i class="fas fa-language"></i> <span id="langText">عربي</span>
+        </button>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1 class="logo" data-en="Al Sultana" data-ar="السلطانة">Al Sultana</h1>
+                <p class="tagline" data-en="Authentic Arabic Cuisine" data-ar="المطبخ العربي الأصيل">Authentic Arabic Cuisine</p>
             </div>
+            <button class="menu-toggle" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" data-en="Home" data-ar="الرئيسية">Home</a></li>
+                <li><a href="#about" data-en="About" data-ar="من نحن">About</a></li>
+                <li><a href="#menu" data-en="Menu" data-ar="القائمة">Menu</a></li>
+                <li><a href="full-menu.html" data-en="Full Menu" data-ar="القائمة الكاملة">Full Menu</a></li>
+                <li><a href="order.html" data-en="Order Online" data-ar="اطلب الآن">Order Online</a></li>
+                <li><a href="#contact" data-en="Contact" data-ar="اتصل بنا">Contact</a></li>
+                <li><a href="admin-login.html" class="admin-link"><i class="fas fa-user-shield"></i></a></li>
+            </ul>
         </div>
     </nav>
 
-    <!-- Cart Icon -->
-    <div class="cart-icon" onclick="showPage('order')">
-        <i class="fas fa-shopping-cart"></i>
-        <span class="cart-count">0</span>
-    </div>
-
-    <!-- Home Page -->
-    <div class="page active" id="home-page">
-        <!-- Hero Section -->
-        <section class="hero">
-            <div class="hero-content">
-                <h1 class="arabic-title">المطعم الملكي</h1>
-                <h1>Al-Malaki Restaurant</h1>
-                <p>Authentic Taste of Arabia</p>
-                <a href="#menu" class="cta-button">احجز طاولة | Book a Table</a>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title animate-fade-in" data-en="Welcome to Al Sultana" data-ar="مرحباً بكم في السلطانة">Welcome to Al Sultana</h1>
+            <p class="hero-subtitle animate-fade-in-delay" data-en="Experience the Royal Taste of Arabia" data-ar="تذوق الطعم الملكي للمطبخ العربي">Experience the Royal Taste of Arabia</p>
+            <div class="hero-buttons animate-fade-in-delay-2">
+                <a href="#menu" class="btn btn-primary" data-en="View Menu" data-ar="القائمة">View Menu</a>
+                <a href="order.html" class="btn btn-secondary" data-en="Order Now" data-ar="اطلب الآن">Order Now</a>
             </div>
-        </section>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
 
-        <!-- About Section -->
-        <section class="about pattern-bg" id="about">
-            <h2 class="section-title">About Us</h2>
-            <p class="section-subtitle">Discover Our Story</p>
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-en="Our Story" data-ar="قصتنا">Our Story</h2>
+                <div class="title-divider"></div>
+            </div>
             <div class="about-content">
-                <div class="about-text fade-in">
-                    <h3>Our Story</h3>
-                    <p>Welcome to Al-Malaki, where tradition meets luxury. Since 1985, we have been serving authentic Arabic cuisine with a royal touch. Our restaurant embodies the rich culinary heritage of the Middle East, bringing you the finest flavors from across the Arabian Peninsula.</p>
-                    <p>Every dish is crafted with passion, using traditional recipes passed down through generations, combined with the finest ingredients to create an unforgettable dining experience.</p>
-                    <p>Step into our world and experience the warmth of Arabian hospitality, where every guest is treated like royalty.</p>
+                <div class="about-text">
+                    <p class="lead" data-en="Al Sultana brings the authentic flavors of Arabian cuisine to your table. Since 2010, we have been serving traditional dishes prepared with love and the finest ingredients." data-ar="تقدم السلطانة نكهات المطبخ العربي الأصيل إلى طاولتك. منذ عام 2010، نقدم الأطباق التقليدية المحضرة بحب وأفضل المكونات.">
+                        Al Sultana brings the authentic flavors of Arabian cuisine to your table. Since 2010, we have been serving traditional dishes prepared with love and the finest ingredients.
+                    </p>
+                    <p data-en="Our master chefs blend time-honored recipes with modern culinary techniques to create an unforgettable dining experience." data-ar="يمزج طهاتنا المحترفون الوصفات التقليدية مع تقنيات الطهي الحديثة لخلق تجربة طعام لا تُنسى.">
+                        Our master chefs blend time-honored recipes with modern culinary techniques to create an unforgettable dining experience.
+                    </p>
                 </div>
-                <div class="chef-card fade-in">
-                    <h4>Chef Ahmed Al-Rashid</h4>
-                    <p><strong>Head Chef & Culinary Director</strong></p>
-                    <p>With over 25 years of experience in Arabic cuisine, Chef Ahmed brings authentic flavors from Riyadh to your table. Trained in the royal kitchens of Saudi Arabia, he masterfully blends traditional techniques with modern presentation.</p>
-                    <p>His signature dishes include Mandi, Kabsa, and our famous Lamb Ouzi, each prepared with meticulous attention to detail and authentic spices sourced directly from the Middle East.</p>
+                <div class="chef-card">
+                    <div class="chef-image">
+                        <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=400" alt="Chef">
+                    </div>
+                    <h3 data-en="Chef Ahmad Al-Mansour" data-ar="الشيف أحمد المنصور">Chef Ahmad Al-Mansour</h3>
+                    <p class="chef-title" data-en="Executive Chef" data-ar="الشيف التنفيذي">Executive Chef</p>
+                    <p class="chef-desc" data-en="With over 20 years of experience in Arabic cuisine, Chef Ahmad brings authentic flavors from across the Arabian Peninsula." data-ar="مع أكثر من 20 عامًا من الخبرة في المطبخ العربي، يقدم الشيف أحمد نكهات أصيلة من جميع أنحاء شبه الجزيرة العربية.">
+                        With over 20 years of experience in Arabic cuisine, Chef Ahmad brings authentic flavors from across the Arabian Peninsula.
+                    </p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Menu Section -->
-        <section class="menu" id="menu">
-            <h2 class="section-title">Our Menu</h2>
-            <p class="section-subtitle">Taste the Royal Flavors</p>
-            
-            <div class="menu-categories">
-                <button class="category-btn active" onclick="filterMenu('all')">All</button>
-                <button class="category-btn" onclick="filterMenu('starters')">Starters</button>
-                <button class="category-btn" onclick="filterMenu('main')">Main Course</button>
-                <button class="category-btn" onclick="filterMenu('desserts')">Desserts</button>
-                <button class="category-btn" onclick="filterMenu('drinks')">Drinks</button>
+    <!-- Menu Preview Section -->
+    <section id="menu" class="menu-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-en="Our Signature Dishes" data-ar="أطباقنا المميزة">Our Signature Dishes</h2>
+                <div class="title-divider"></div>
             </div>
-
-            <div class="menu-grid" id="menu-grid">
-                <!-- Menu items will be populated by JavaScript -->
+            <div class="menu-grid" id="menuGrid"></div>
+            <div class="text-center" style="margin-top: 3rem;">
+                <a href="full-menu.html" class="btn btn-primary" data-en="View Full Menu" data-ar="القائمة الكاملة">View Full Menu</a>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Contact Section -->
-        <section class="contact pattern-bg" id="contact">
-            <h2 class="section-title">Contact Us</h2>
-            <p class="section-subtitle">Visit Us Today</p>
-            <div class="contact-grid">
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-en="Visit Us" data-ar="زرنا">Visit Us</h2>
+                <div class="title-divider"></div>
+            </div>
+            <div class="contact-content">
                 <div class="contact-info">
-                    <div class="contact-item fade-in">
+                    <div class="info-card">
                         <i class="fas fa-map-marker-alt"></i>
-                        <div>
-                            <h4>Location</h4>
-                            <p>123 King Fahd Road, Riyadh 12345<br>Kingdom of Saudi Arabia</p>
-                        </div>
+                        <h3 data-en="Location" data-ar="الموقع">Location</h3>
+                        <p data-en="123 Arabian Street, Dubai Marina, UAE" data-ar="123 شارع العربي، دبي مارينا، الإمارات">123 Arabian Street, Dubai Marina, UAE</p>
                     </div>
-                    <div class="contact-item fade-in">
+                    <div class="info-card">
                         <i class="fas fa-phone"></i>
-                        <div>
-                            <h4>Phone</h4>
-                            <p>+966 11 234 5678</p>
-                            <a href="https://wa.me/966112345678" style="color: var(--primary-gold);">
-                                <i class="fab fa-whatsapp"></i> WhatsApp Us
-                            </a>
-                        </div>
+                        <h3 data-en="Phone" data-ar="الهاتف">Phone</h3>
+                        <p>+971 4 123 4567</p>
+                        <a href="https://wa.me/97141234567" class="whatsapp-btn" target="_blank">
+                            <i class="fab fa-whatsapp"></i> <span data-en="WhatsApp" data-ar="واتساب">WhatsApp</span>
+                        </a>
                     </div>
-                    <div class="contact-item fade-in">
+                    <div class="info-card">
                         <i class="fas fa-clock"></i>
-                        <div>
-                            <h4>Opening Hours</h4>
-                            <p>Saturday - Thursday: 12:00 PM - 11:00 PM<br>Friday: 1:00 PM - 12:00 AM</p>
-                        </div>
+                        <h3 data-en="Opening Hours" data-ar="ساعات العمل">Opening Hours</h3>
+                        <p><span data-en="Saturday - Thursday: 12:00 PM - 11:00 PM" data-ar="السبت - الخميس: 12:00 م - 11:00 م">Saturday - Thursday: 12:00 PM - 11:00 PM</span></p>
+                        <p><span data-en="Friday: 1:00 PM - 12:00 AM" data-ar="الجمعة: 1:00 م - 12:00 ص">Friday: 1:00 PM - 12:00 AM</span></p>
                     </div>
                 </div>
-                <div class="map-container fade-in">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3624.395847362!2d46.6752957!3d24.713552!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f03c!2sRiyadh!5e0!3m2!1sen!2ssa!4v1234567890" allowfullscreen="" loading="lazy"></iframe>
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3613.0731447194716!2d55.13697931501204!3d25.08042198395291!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f6b3d6b7b7b7b%3A0x7b7b7b7b7b7b7b7b!2sDubai%20Marina!5e0!3m2!1sen!2sae!4v1234567890" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Footer -->
-        <footer class="footer">
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
             <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Al-Malaki Restaurant</h3>
-                    <p>Experience authentic Arabic cuisine in a royal atmosphere. Where tradition meets luxury.</p>
+                <div class="footer-col">
+                    <h3 data-en="Al Sultana" data-ar="السلطانة">Al Sultana</h3>
+                    <p data-en="Bringing authentic Arabian flavors to your table with passion and excellence." data-ar="نقدم النكهات العربية الأصيلة إلى طاولتك بشغف وتميز.">Bringing authentic Arabian flavors to your table with passion and excellence.</p>
+                </div>
+                <div class="footer-col">
+                    <h4 data-en="Quick Links" data-ar="روابط سريعة">Quick Links</h4>
+                    <ul>
+                        <li><a href="#home" data-en="Home" data-ar="الرئيسية">Home</a></li>
+                        <li><a href="#about" data-en="About" data-ar="من نحن">About</a></li>
+                        <li><a href="full-menu.html" data-en="Menu" data-ar="القائمة">Menu</a></li>
+                        <li><a href="order.html" data-en="Order" data-ar="اطلب">Order</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4 data-en="Follow Us" data-ar="تابعنا">Follow Us</h4>
                     <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
                         <a href="#"><i class="fab fa-instagram"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
                         <a href="#"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
-                <div class="footer-section">
-                    <h3>Quick Links</h3>
-                    <a href="#about">About Us</a>
-                    <a href="#menu">Menu</a>
-                    <a href="#" onclick="showPage('order')">Order Online</a>
-                    <a href="#contact">Contact</a>
-                </div>
-                <div class="footer-section">
-                    <h3>Contact Info</h3>
-                    <p><i class="fas fa-phone"></i> +966 11 234 5678</p>
-                    <p><i class="fas fa-envelope"></i> info@almalaki.sa</p>
-                    <p><i class="fas fa-map-marker-alt"></i> Riyadh, Saudi Arabia</p>
-                </div>
-                <div class="footer-section">
-                    <h3>Opening Hours</h3>
-                    <p>Sat - Thu: 12:00 PM - 11:00 PM</p>
-                    <p>Friday: 1:00 PM - 12:00 AM</p>
-                </div>
             </div>
-            <div class="copyright">
-                <p>&copy; 2026 Al-Malaki Restaurant. All Rights Reserved.</p>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Al Sultana Restaurant. <span data-en="All rights reserved." data-ar="جميع الحقوق محفوظة.">All rights reserved.</span></p>
             </div>
-        </footer>
-    </div>
-
-    <!-- Full Menu Page -->
-    <div class="page" id="full-menu-page">
-        <section class="menu" style="padding-top: 100px;">
-            <h2 class="section-title">Complete Menu</h2>
-            <p class="section-subtitle">Explore Our Full Selection</p>
-            
-            <div class="menu-categories">
-                <button class="category-btn active" onclick="filterFullMenu('all')">All</button>
-                <button class="category-btn" onclick="filterFullMenu('starters')">Starters</button>
-                <button class="category-btn" onclick="filterFullMenu('main')">Main Course</button>
-                <button class="category-btn" onclick="filterFullMenu('desserts')">Desserts</button>
-                <button class="category-btn" onclick="filterFullMenu('drinks')">Drinks</button>
-            </div>
-
-            <div class="menu-grid" id="full-menu-grid">
-                <!-- Full menu items will be populated by JavaScript -->
-            </div>
-        </section>
-    </div>
-
-    <!-- Order Page -->
-    <div class="page" id="order-page">
-        <section style="padding-top: 100px;">
-            <h2 class="section-title">Your Order</h2>
-            <p class="section-subtitle">Review and complete your order</p>
-            
-            <div class="order-container">
-                <div class="cart-items">
-                    <h3 style="color: var(--primary-gold); margin-bottom: 2rem;">Cart Items</h3>
-                    <div id="cart-items-container">
-                        <p style="text-align: center; color: var(--light-gold); padding: 3rem;">Your cart is empty. Add items from the menu!</p>
-                    </div>
-                </div>
-                <div class="cart-summary">
-                    <h3 style="color: var(--primary-gold); margin-bottom: 1.5rem;">Order Summary</h3>
-                    <div class="summary-row">
-                        <span>Subtotal:</span>
-                        <span id="subtotal">₹0.00</span>
-                    </div>
-                    <div class="summary-row">
-                        <span>Tax (5%):</span>
-                        <span id="tax">₹0.00</span>
-                    </div>
-                    <div class="summary-row">
-                        <span>Delivery:</span>
-                        <span id="delivery">₹50.00</span>
-                    </div>
-                    <div class="summary-row summary-total">
-                        <span>Total:</span>
-                        <span id="total">₹0.00</span>
-                    </div>
-                    <button class="cta-button" style="width: 100%; margin-top: 1rem;" onclick="showPage('payment')">Proceed to Payment</button>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- Payment Page -->
-    <div class="page" id="payment-page">
-        <section style="padding-top: 100px; max-width: 800px; margin: 0 auto;">
-            <h2 class="section-title">Payment</h2>
-            <p class="section-subtitle">Complete your order</p>
-            
-            <div class="payment-methods">
-                <div class="payment-method active" onclick="selectPayment('upi')">
-                    <h3 style="color: var(--primary-gold);"><i class="fas fa-mobile-alt"></i> UPI Payment</h3>
-                    <p>Pay using Google Pay, PhonePe, Paytm</p>
-                </div>
-                <div class="payment-method" onclick="selectPayment('card')">
-                    <h3 style="color: var(--primary-gold);"><i class="fas fa-credit-card"></i> Credit/Debit Card</h3>
-                    <p>Visa, Mastercard, Amex accepted</p>
-                </div>
-                <div class="payment-method" onclick="selectPayment('cod')">
-                    <h3 style="color: var(--primary-gold);"><i class="fas fa-money-bill-wave"></i> Cash on Delivery</h3>
-                    <p>Pay when you receive your order</p>
-                </div>
-            </div>
-
-            <div class="payment-form" id="upi-form">
-                <h3 style="color: var(--primary-gold); margin-bottom: 1.5rem;">UPI Payment Details</h3>
-                <div class="form-group">
-                    <label>UPI ID</label>
-                    <input type="text" placeholder="yourname@upi" required>
-                </div>
-                <div class="form-group">
-                    <label>Phone Number</label>
-                    <input type="tel" placeholder="+91 XXXXX XXXXX" required>
-                </div>
-                <button class="cta-button" style="width: 100%;" onclick="processPayment()">Complete Payment</button>
-            </div>
-
-            <div class="payment-form" id="card-form" style="display: none;">
-                <h3 style="color: var(--primary-gold); margin-bottom: 1.5rem;">Card Payment Details</h3>
-                <div class="form-group">
-                    <label>Card Number</label>
-                    <input type="text" placeholder="1234 5678 9012 3456" required>
-                </div>
-                <div class="form-group">
-                    <label>Cardholder Name</label>
-                    <input type="text" placeholder="Name on Card" required>
-                </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                    <div class="form-group">
-                        <label>Expiry Date</label>
-                        <input type="text" placeholder="MM/YY" required>
-                    </div>
-                    <div class="form-group">
-                        <label>CVV</label>
-                        <input type="text" placeholder="123" required>
-                    </div>
-                </div>
-                <button class="cta-button" style="width: 100%;" onclick="processPayment()">Complete Payment</button>
-            </div>
-
-            <div class="payment-form" id="cod-form" style="display: none;">
-                <h3 style="color: var(--primary-gold); margin-bottom: 1.5rem;">Delivery Details</h3>
-                <div class="form-group">
-                    <label>Full Name</label>
-                    <input type="text" placeholder="Your Name" required>
-                </div>
-                <div class="form-group">
-                    <label>Phone Number</label>
-                    <input type="tel" placeholder="+91 XXXXX XXXXX" required>
-                </div>
-                <div class="form-group">
-                    <label>Delivery Address</label>
-                    <input type="text" placeholder="Complete Address" required>
-                </div>
-                <button class="cta-button" style="width: 100%;" onclick="processPayment()">Place Order</button>
-            </div>
-        </section>
-    </div>
-
-    <!-- Admin Panel Page -->
-    <div class="page" id="admin-page">
-        <section style="padding-top: 100px;">
-            <h2 class="section-title">Admin Panel</h2>
-            <p class="section-subtitle">Manage Menu Items</p>
-            
-            <div class="admin-panel">
-                <h3 style="color: var(--primary-gold); margin-bottom: 1.5rem;">Add New Menu Item</h3>
-                <form class="admin-form" onsubmit="addMenuItem(event)">
-                    <div class="form-group">
-                        <label>Item Name (English)</label>
-                        <input type="text" id="item-name" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Item Name (Arabic)</label>
-                        <input type="text" id="item-name-arabic" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Category</label>
-                        <select id="item-category" style="width: 100%; padding: 1rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 5px; color: var(--text-light);">
-                            <option value="starters">Starters</option>
-                            <option value="main">Main Course</option>
-                            <option value="desserts">Desserts</option>
-                            <option value="drinks">Drinks</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Price (₹)</label>
-                        <input type="number" id="item-price" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Description</label>
-                        <input type="text" id="item-description" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Icon (Emoji)</label>
-                        <input type="text" id="item-icon" placeholder="🍖">
-                    </div>
-                    <button type="submit" class="cta-button" style="width: 100%;">Add Item</button>
-                </form>
-
-                <div class="menu-list">
-                    <h3 style="color: var(--primary-gold); margin-bottom: 1rem;">Current Menu Items</h3>
-                    <div id="admin-menu-list">
-                        <!-- Menu items will be listed here -->
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- Success Message -->
-    <div class="success-message" id="success-message">
-        <i class="fas fa-check-circle"></i>
-        <h2>Order Placed Successfully!</h2>
-        <p>Your order will be delivered in 30-45 minutes.</p>
-        <p style="margin-top: 1rem;">Order ID: <strong>#ORD<span id="order-id"></span></strong></p>
-    </div>
+        </div>
+    </footer>
 
     <script>
         // Menu Data
-        let menuItems = [
+        const menuData = [
             {
                 id: 1,
-                name: "Hummus",
-                nameAr: "حمص",
-                category: "starters",
-                price: 299,
-                description: "Creamy chickpea dip with tahini, lemon, and olive oil",
-                icon: "🥙"
+                nameEn: 'Lamb Kabsa',
+                nameAr: 'كبسة لحم',
+                category: 'Main Course',
+                price: 65,
+                description: 'Traditional Arabian rice dish with tender lamb, aromatic spices, and nuts',
+                image: 'https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=500'
             },
             {
                 id: 2,
-                name: "Falafel",
-                nameAr: "فلافل",
-                category: "starters",
-                price: 349,
-                description: "Crispy chickpea fritters with fresh herbs",
-                icon: "🧆"
+                nameEn: 'Shawarma Platter',
+                nameAr: 'طبق شاورما',
+                category: 'Main Course',
+                price: 45,
+                description: 'Mixed shawarma with garlic sauce, pickles, and fresh vegetables',
+                image: 'https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=500'
             },
             {
                 id: 3,
-                name: "Baba Ganoush",
-                nameAr: "بابا غنوج",
-                category: "starters",
-                price: 329,
-                description: "Smoky eggplant dip with tahini and garlic",
-                icon: "🍆"
+                nameEn: 'Mezze Platter',
+                nameAr: 'طبق المقبلات',
+                category: 'Starters',
+                price: 35,
+                description: 'Assorted appetizers including hummus, baba ghanoush, and tabbouleh',
+                image: 'https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=500'
             },
             {
                 id: 4,
-                name: "Chicken Kabsa",
-                nameAr: "كبسة دجاج",
-                category: "main",
-                price: 899,
-                description: "Traditional rice dish with tender chicken and aromatic spices",
-                icon: "🍗"
+                nameEn: 'Grilled Halloumi',
+                nameAr: 'حلومي مشوي',
+                category: 'Starters',
+                price: 28,
+                description: 'Golden grilled halloumi cheese with za\'atar and olive oil',
+                image: 'https://images.unsplash.com/photo-1571380401583-72ca84994796?w=500'
             },
             {
                 id: 5,
-                name: "Lamb Mandi",
-                nameAr: "مندي لحم",
-                category: "main",
-                price: 1299,
-                description: "Slow-cooked lamb with fragrant rice",
-                icon: "🍖"
+                nameEn: 'Kunafa',
+                nameAr: 'كنافة',
+                category: 'Desserts',
+                price: 25,
+                description: 'Sweet cheese pastry soaked in sugar syrup, topped with pistachios',
+                image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500'
             },
             {
                 id: 6,
-                name: "Lamb Ouzi",
-                nameAr: "عوزي",
-                category: "main",
-                price: 1499,
-                description: "Whole roasted lamb with spiced rice and nuts",
-                icon: "🥩"
-            },
-            {
-                id: 7,
-                name: "Shawarma Plate",
-                nameAr: "صحن شاورما",
-                category: "main",
-                price: 699,
-                description: "Marinated meat wrapped in fresh bread with vegetables",
-                icon: "🌯"
-            },
-            {
-                id: 8,
-                name: "Baklava",
-                nameAr: "بقلاوة",
-                category: "desserts",
-                price: 399,
-                description: "Sweet pastry with honey and pistachios",
-                icon: "🥐"
-            },
-            {
-                id: 9,
-                name: "Kunafa",
-                nameAr: "كنافة",
-                category: "desserts",
-                price: 449,
-                description: "Sweet cheese pastry soaked in sugar syrup",
-                icon: "🧀"
-            },
-            {
-                id: 10,
-                name: "Um Ali",
-                nameAr: "أم علي",
-                category: "desserts",
-                price: 379,
-                description: "Traditional bread pudding with nuts and raisins",
-                icon: "🍮"
-            },
-            {
-                id: 11,
-                name: "Arabic Coffee",
-                nameAr: "قهوة عربية",
-                category: "drinks",
-                price: 199,
-                description: "Traditional cardamom-flavored coffee",
-                icon: "☕"
-            },
-            {
-                id: 12,
-                name: "Fresh Lemonade",
-                nameAr: "عصير ليمون",
-                category: "drinks",
-                price: 149,
-                description: "Freshly squeezed lemon with mint",
-                icon: "🍋"
-            },
-            {
-                id: 13,
-                name: "Jallab",
-                nameAr: "جلاب",
-                category: "drinks",
-                price: 179,
-                description: "Sweet drink with dates, grape molasses, and rose water",
-                icon: "🥤"
+                nameEn: 'Fresh Mint Lemonade',
+                nameAr: 'ليمونادة بالنعناع',
+                category: 'Drinks',
+                price: 15,
+                description: 'Refreshing lemonade with fresh mint leaves',
+                image: 'https://images.unsplash.com/photo-1523677011781-c91d1bbe2f9e?w=500'
             }
         ];
 
-        let cart = [];
-        let currentLanguage = 'en';
-        let currentPaymentMethod = 'upi';
+        // Save menu data to localStorage
+        localStorage.setItem('menuData', JSON.stringify(menuData));
 
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            renderMenu();
-            renderFullMenu();
-            updateCartCount();
-            setupScrollAnimations();
-            setupNavbarScroll();
-            renderAdminMenuList();
+        // Load menu on homepage
+        function loadHomeMenu() {
+            const menuGrid = document.getElementById('menuGrid');
+            const displayItems = menuData.slice(0, 6);
+            
+            menuGrid.innerHTML = displayItems.map(item => `
+                <div class="menu-card">
+                    <img src="${item.image}" alt="${item.nameEn}">
+                    <div class="menu-card-content">
+                        <div class="menu-card-header">
+                            <div>
+                                <h3 data-en="${item.nameEn}" data-ar="${item.nameAr}">${item.nameEn}</h3>
+                                <p class="arabic-name">${item.nameAr}</p>
+                            </div>
+                            <span class="price">$${item.price}</span>
+                        </div>
+                        <p data-en="${item.description}" data-ar="${item.description}">${item.description}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Toggle mobile menu
+        function toggleMenu() {
+            document.getElementById('navMenu').classList.toggle('active');
+        }
+
+        // Sticky navbar
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
         });
 
-        // Page Navigation
-        function showPage(pageName) {
-            const pages = document.querySelectorAll('.page');
-            pages.forEach(page => page.classList.remove('active'));
-            document.getElementById(pageName + '-page').classList.add('active');
-            window.scrollTo(0, 0);
-
-            if (pageName === 'order') {
-                renderCart();
-            }
-        }
-
-        // Toggle Mobile Menu
-        function toggleMenu() {
-            document.querySelector('.nav-links').classList.toggle('active');
-        }
-
-        // Toggle Language
-        function toggleLanguage() {
-            currentLanguage = currentLanguage === 'en' ? 'ar' : 'en';
-            const html = document.documentElement;
-            const langBtn = document.querySelector('.lang-switch');
-            
-            if (currentLanguage === 'ar') {
-                html.setAttribute('lang', 'ar');
-                html.setAttribute('dir', 'rtl');
-                langBtn.textContent = 'English';
-            } else {
-                html.setAttribute('lang', 'en');
-                html.setAttribute('dir', 'ltr');
-                langBtn.textContent = 'العربية';
-            }
-        }
-
-        // Render Menu
-        function renderMenu(category = 'all') {
-            const menuGrid = document.getElementById('menu-grid');
-            const items = category === 'all' ? menuItems : menuItems.filter(item => item.category === category);
-            
-            menuGrid.innerHTML = items.slice(0, 6).map(item => `
-                <div class="menu-item" data-category="${item.category}">
-                    <div class="menu-item-image">${item.icon}</div>
-                    <h3>${item.name}</h3>
-                    <p class="arabic-name">${item.nameAr}</p>
-                    <p class="price">₹${item.price}</p>
-                    <p>${item.description}</p>
-                    <button class="order-btn" onclick="addToCart(${item.id})">Add to Cart</button>
-                </div>
-            `).join('');
-        }
-
-        // Render Full Menu
-        function renderFullMenu(category = 'all') {
-            const menuGrid = document.getElementById('full-menu-grid');
-            const items = category === 'all' ? menuItems : menuItems.filter(item => item.category === category);
-            
-            menuGrid.innerHTML = items.map(item => `
-                <div class="menu-item" data-category="${item.category}">
-                    <div class="menu-item-image">${item.icon}</div>
-                    <h3>${item.name}</h3>
-                    <p class="arabic-name">${item.nameAr}</p>
-                    <p class="price">₹${item.price}</p>
-                    <p>${item.description}</p>
-                    <button class="order-btn" onclick="addToCart(${item.id})">Add to Cart</button>
-                </div>
-            `).join('');
-        }
-
-        // Filter Menu
-        function filterMenu(category) {
-            const buttons = document.querySelectorAll('#menu .category-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            renderMenu(category);
-        }
-
-        function filterFullMenu(category) {
-            const buttons = document.querySelectorAll('#full-menu-page .category-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            renderFullMenu(category);
-        }
-
-        // Cart Functions
-        function addToCart(itemId) {
-            const item = menuItems.find(i => i.id === itemId);
-            const cartItem = cart.find(i => i.id === itemId);
-            
-            if (cartItem) {
-                cartItem.quantity++;
-            } else {
-                cart.push({ ...item, quantity: 1 });
-            }
-            
-            updateCartCount();
-            showNotification('Item added to cart!');
-        }
-
-        function updateCartCount() {
-            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
-            document.querySelector('.cart-count').textContent = count;
-        }
-
-        function renderCart() {
-            const container = document.getElementById('cart-items-container');
-            
-            if (cart.length === 0) {
-                container.innerHTML = '<p style="text-align: center; color: var(--light-gold); padding: 3rem;">Your cart is empty. Add items from the menu!</p>';
-                updateCartSummary();
-                return;
-            }
-            
-            container.innerHTML = cart.map(item => `
-                <div class="cart-item">
-                    <div class="cart-item-image">${item.icon}</div>
-                    <div class="cart-item-details">
-                        <h4 style="color: var(--primary-gold);">${item.name}</h4>
-                        <p style="color: var(--light-gold); font-family: 'Amiri', serif;">${item.nameAr}</p>
-                        <p style="color: var(--primary-gold); font-weight: 700;">₹${item.price}</p>
-                    </div>
-                    <div class="quantity-controls">
-                        <button onclick="updateQuantity(${item.id}, -1)">-</button>
-                        <span style="color: var(--primary-gold); font-weight: 700;">${item.quantity}</span>
-                        <button onclick="updateQuantity(${item.id}, 1)">+</button>
-                    </div>
-                    <button class="remove-btn" onclick="removeFromCart(${item.id})">Remove</button>
-                </div>
-            `).join('');
-            
-            updateCartSummary();
-        }
-
-        function updateQuantity(itemId, change) {
-            const item = cart.find(i => i.id === itemId);
-            if (item) {
-                item.quantity += change;
-                if (item.quantity <= 0) {
-                    removeFromCart(itemId);
-                } else {
-                    renderCart();
-                    updateCartCount();
-                }
-            }
-        }
-
-        function removeFromCart(itemId) {
-            cart = cart.filter(i => i.id !== itemId);
-            renderCart();
-            updateCartCount();
-        }
-
-        function updateCartSummary() {
-            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const tax = subtotal * 0.05;
-            const delivery = cart.length > 0 ? 50 : 0;
-            const total = subtotal + tax + delivery;
-            
-            document.getElementById('subtotal').textContent = `₹${subtotal.toFixed(2)}`;
-            document.getElementById('tax').textContent = `₹${tax.toFixed(2)}`;
-            document.getElementById('delivery').textContent = `₹${delivery.toFixed(2)}`;
-            document.getElementById('total').textContent = `₹${total.toFixed(2)}`;
-        }
-
-        // Payment Functions
-        function selectPayment(method) {
-            currentPaymentMethod = method;
-            document.querySelectorAll('.payment-method').forEach(pm => pm.classList.remove('active'));
-            event.target.closest('.payment-method').classList.add('active');
-            
-            document.getElementById('upi-form').style.display = method === 'upi' ? 'block' : 'none';
-            document.getElementById('card-form').style.display = method === 'card' ? 'block' : 'none';
-            document.getElementById('cod-form').style.display = method === 'cod' ? 'block' : 'none';
-        }
-
-        function processPayment() {
-            const orderId = Math.floor(Math.random() * 100000);
-            document.getElementById('order-id').textContent = orderId;
-            document.getElementById('success-message').classList.add('show');
-            
-            setTimeout(() => {
-                document.getElementById('success-message').classList.remove('show');
-                cart = [];
-                updateCartCount();
-                showPage('home');
-            }, 3000);
-        }
-
-        // Admin Functions
-        function addMenuItem(event) {
-            event.preventDefault();
-            
-            const newItem = {
-                id: menuItems.length + 1,
-                name: document.getElementById('item-name').value,
-                nameAr: document.getElementById('item-name-arabic').value,
-                category: document.getElementById('item-category').value,
-                price: parseInt(document.getElementById('item-price').value),
-                description: document.getElementById('item-description').value,
-                icon: document.getElementById('item-icon').value || '🍽️'
-            };
-            
-            menuItems.push(newItem);
-            renderMenu();
-            renderFullMenu();
-            renderAdminMenuList();
-            showNotification('Menu item added successfully!');
-            event.target.reset();
-        }
-
-        function deleteMenuItem(itemId) {
-            if (confirm('Are you sure you want to delete this item?')) {
-                menuItems = menuItems.filter(item => item.id !== itemId);
-                renderMenu();
-                renderFullMenu();
-                renderAdminMenuList();
-                showNotification('Item deleted successfully!');
-            }
-        }
-
-        function renderAdminMenuList() {
-            const container = document.getElementById('admin-menu-list');
-            container.innerHTML = menuItems.map(item => `
-                <div class="menu-list-item">
-                    <div>
-                        <strong style="color: var(--primary-gold);">${item.name}</strong> (${item.nameAr})
-                        <br>
-                        <span style="color: var(--light-gold);">Category: ${item.category} | Price: ₹${item.price}</span>
-                    </div>
-                    <button class="delete-btn" onclick="deleteMenuItem(${item.id})">Delete</button>
-                </div>
-            `).join('');
-        }
-
-        // Scroll Animations
-        function setupScrollAnimations() {
-            const fadeElements = document.querySelectorAll('.fade-in');
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.1 });
-            
-            fadeElements.forEach(el => observer.observe(el));
-        }
-
-        // Navbar Scroll
-        function setupNavbarScroll() {
-            window.addEventListener('scroll', () => {
-                const navbar = document.querySelector('.navbar');
-                if (window.scrollY > 100) {
-                    navbar.classList.add('scrolled');
-                } else {
-                    navbar.classList.remove('scrolled');
-                }
-            });
-        }
-
-        // Notification
-        function showNotification(message) {
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 100px;
-                right: 20px;
-                background: var(--primary-gold);
-                color: var(--dark-bg);
-                padding: 1rem 2rem;
-                border-radius: 10px;
-                z-index: 9999;
-                animation: slideIn 0.3s ease-out;
-                font-weight: 700;
-            `;
-            notification.textContent = message;
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.remove();
-            }, 2000);
-        }
-
-        // Smooth Scroll
+        // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                const href = this.getAttribute('href');
-                if (href !== '#' && href.startsWith('#')) {
-                    e.preventDefault();
-                    const target = document.querySelector(href);
-                    if (target) {
-                        target.scrollIntoView({ behavior: 'smooth' });
-                    }
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    document.getElementById('navMenu').classList.remove('active');
                 }
             });
+        });
+
+        // Language toggle
+        let currentLang = 'en';
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'ar' : 'en';
+            document.body.classList.toggle('rtl');
+            
+            const elements = document.querySelectorAll('[data-en][data-ar]');
+            elements.forEach(el => {
+                el.textContent = el.getAttribute(`data-${currentLang}`);
+            });
+            
+            document.getElementById('langText').textContent = currentLang === 'en' ? 'عربي' : 'English';
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadHomeMenu();
         });
     </script>
 </body>
