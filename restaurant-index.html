@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Al Sultana | مطعم السلطانة - Luxury Arabic Restaurant</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Lato:wght@300;400;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #c9a961;
+            --secondary-color: #1a1a1a;
+            --text-color: #333;
+            --light-bg: #f8f8f8;
+            --white: #ffffff;
+            --shadow: 0 5px 15px rgba(0,0,0,0.1);
+            --gold-gradient: linear-gradient(135deg, #c9a961 0%, #d4af37 100%);
+        }
+
+        body {
+            font-family: 'Lato', 'Cairo', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        body.rtl {
+            direction: rtl;
+        }
+
+        /* Islamic Pattern Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(201,169,97,.03) 35px, rgba(201,169,97,.03) 70px);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Language Toggle */
+        .lang-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+        }
+
+        .lang-toggle button {
+            background: var(--gold-gradient);
+            color: var(--white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .lang-toggle button:hover {
+            transform: scale(1.05);
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+
+        .navbar.scrolled {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            color: var(--white);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', 'Cairo', serif;
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 0;
+        }
+
+        .tagline {
+            font-size: 0.8rem;
+            color: #ccc;
+            margin-top: -5px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary-color);
+        }
+
+        .admin-link {
+            color: var(--primary-color) !important;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=1600') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .hero-content {
+            z-index: 2;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', 'Cairo', serif;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--gold-gradient);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(201,169,97,0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-color);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator i {
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        /* Sections */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', 'Cairo', serif;
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .title-divider {
+            width: 100px;
+            height: 3px;
+            background: var(--gold-gradient);
+            margin: 0 auto;
+        }
+
+        /* About Section */
+        .about-section {
+            background: var(--white);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text .lead {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .about-text p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .chef-card {
+            background: var(--light-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .chef-image {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 1rem;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid var(--primary-color);
+        }
+
+        .chef-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .chef-card h3 {
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .chef-title {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .chef-desc {
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Menu Section */
+        .menu-section {
+            background: var(--light-bg);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .menu-card {
+            background: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .menu-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .menu-card-content {
+            padding: 1.5rem;
+        }
+
+        .menu-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .menu-card h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--secondary-color);
+            font-size: 1.3rem;
+        }
+
+        .menu-card .arabic-name {
+            font-family: 'Cairo', sans-serif;
+            color: var(--primary-color);
+            font-size: 1rem;
+            margin-top: 0.3rem;
+        }
+
+        .menu-card .price {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .menu-card p {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: var(--white);
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .info-card {
+            background: var(--light-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .info-card i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .info-card h3 {
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .whatsapp-btn {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 10px 20px;
+            background: #25d366;
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 25px;
+            transition: transform 0.3s;
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .map-container {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--secondary-color);
+            color: var(--white);
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-col h3, .footer-col h4 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .footer-col p {
+            line-height: 1.8;
+            color: #ccc;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-col a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-col a:hover {
+            color: var(--primary-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+
+        .social-links a:hover {
+            transform: scale(1.1);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+            color: #999;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-15px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .animate-fade-in-delay {
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .animate-fade-in-delay-2 {
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background: rgba(26, 26, 26, 0.98);
+                width: 100%;
+                padding: 2rem 0;
+                transition: left 0.3s;
+                align-items: center;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Toggle -->
+    <div class="lang-toggle">
+        <button id="langBtn" onclick="toggleLanguage()">
+            <i class="fas fa-language"></i> <span id="langText">عربي</span>
+        </button>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1 class="logo" data-en="Al Sultana" data-ar="السلطانة">Al Sultana</h1>
+                <p class="tagline" data-en="Authentic Arabic Cuisine" data-ar="المطبخ العربي الأصيل">Authentic Arabic Cuisine</p>
+            </div>
+            <button class="menu-toggle" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" data-en="Home" data-ar="الرئيسية">Home</a></li>
+                <li><a href="#about" data-en="About" data-ar="من نحن">About</a></li>
+                <li><a href="#menu" data-en="Menu" data-ar="القائمة">Menu</a></li>
+                <li><a href="full-menu.html" data-en="Full Menu" data-ar="القائمة الكاملة">Full Menu</a></li>
+                <li><a href="order.html" data-en="Order Online" data-ar="اطلب الآن">Order Online</a></li>
+                <li><a href="#contact" data-en="Contact" data-ar="اتصل بنا">Contact</a></li>
+                <li><a href="admin-login.html" class="admin-link"><i class="fas fa-user-shield"></i></a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title animate-fade-in" data-en="Welcome to Al Sultana" data-ar="مرحباً بكم في السلطانة">Welcome to Al Sultana</h1>
+            <p class="hero-subtitle animate-fade-in-delay" data-en="Experience the Royal Taste of Arabia" data-ar="تذوق الطعم الملكي للمطبخ العربي">Experience the Royal Taste of Arabia</p>
+            <div class="hero-buttons animate-fade-in-delay-2">
+                <a href="#menu" class="btn btn-primary" data-en="View Menu" data-ar="القائمة">View Menu</a>
+                <a href="order.html" class="btn btn-secondary" data-en="Order Now" data-ar="اطلب الآن">Order Now</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-en="Our Story" data-ar="قصتنا">Our Story</h2>
+                <div class="title-divider"></div>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p class="lead" data-en="Al Sultana brings the authentic flavors of Arabian cuisine to your table. Since 2010, we have been serving traditional dishes prepared with love and the finest ingredients." data-ar="تقدم السلطانة نكهات المطبخ العربي الأصيل إلى طاولتك. منذ عام 2010، نقدم الأطباق التقليدية المحضرة بحب وأفضل المكونات.">
+                        Al Sultana brings the authentic flavors of Arabian cuisine to your table. Since 2010, we have been serving traditional dishes prepared with love and the finest ingredients.
+                    </p>
+                    <p data-en="Our master chefs blend time-honored recipes with modern culinary techniques to create an unforgettable dining experience." data-ar="يمزج طهاتنا المحترفون الوصفات التقليدية مع تقنيات الطهي الحديثة لخلق تجربة طعام لا تُنسى.">
+                        Our master chefs blend time-honored recipes with modern culinary techniques to create an unforgettable dining experience.
+                    </p>
+                </div>
+                <div class="chef-card">
+                    <div class="chef-image">
+                        <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=400" alt="Chef">
+                    </div>
+                    <h3 data-en="Chef Ahmad Al-Mansour" data-ar="الشيف أحمد المنصور">Chef Ahmad Al-Mansour</h3>
+                    <p class="chef-title" data-en="Executive Chef" data-ar="الشيف التنفيذي">Executive Chef</p>
+                    <p class="chef-desc" data-en="With over 20 years of experience in Arabic cuisine, Chef Ahmad brings authentic flavors from across the Arabian Peninsula." data-ar="مع أكثر من 20 عامًا من الخبرة في المطبخ العربي، يقدم الشيف أحمد نكهات أصيلة من جميع أنحاء شبه الجزيرة العربية.">
+                        With over 20 years of experience in Arabic cuisine, Chef Ahmad brings authentic flavors from across the Arabian Peninsula.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Preview Section -->
+    <section id="menu" class="menu-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-en="Our Signature Dishes" data-ar="أطباقنا المميزة">Our Signature Dishes</h2>
+                <div class="title-divider"></div>
+            </div>
+            <div class="menu-grid" id="menuGrid"></div>
+            <div class="text-center" style="margin-top: 3rem;">
+                <a href="full-menu.html" class="btn btn-primary" data-en="View Full Menu" data-ar="القائمة الكاملة">View Full Menu</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-en="Visit Us" data-ar="زرنا">Visit Us</h2>
+                <div class="title-divider"></div>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="info-card">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h3 data-en="Location" data-ar="الموقع">Location</h3>
+                        <p data-en="123 Arabian Street, Dubai Marina, UAE" data-ar="123 شارع العربي، دبي مارينا، الإمارات">123 Arabian Street, Dubai Marina, UAE</p>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-phone"></i>
+                        <h3 data-en="Phone" data-ar="الهاتف">Phone</h3>
+                        <p>+971 4 123 4567</p>
+                        <a href="https://wa.me/97141234567" class="whatsapp-btn" target="_blank">
+                            <i class="fab fa-whatsapp"></i> <span data-en="WhatsApp" data-ar="واتساب">WhatsApp</span>
+                        </a>
+                    </div>
+                    <div class="info-card">
+                        <i class="fas fa-clock"></i>
+                        <h3 data-en="Opening Hours" data-ar="ساعات العمل">Opening Hours</h3>
+                        <p><span data-en="Saturday - Thursday: 12:00 PM - 11:00 PM" data-ar="السبت - الخميس: 12:00 م - 11:00 م">Saturday - Thursday: 12:00 PM - 11:00 PM</span></p>
+                        <p><span data-en="Friday: 1:00 PM - 12:00 AM" data-ar="الجمعة: 1:00 م - 12:00 ص">Friday: 1:00 PM - 12:00 AM</span></p>
+                    </div>
+                </div>
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3613.0731447194716!2d55.13697931501204!3d25.08042198395291!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f6b3d6b7b7b7b%3A0x7b7b7b7b7b7b7b7b!2sDubai%20Marina!5e0!3m2!1sen!2sae!4v1234567890" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3 data-en="Al Sultana" data-ar="السلطانة">Al Sultana</h3>
+                    <p data-en="Bringing authentic Arabian flavors to your table with passion and excellence." data-ar="نقدم النكهات العربية الأصيلة إلى طاولتك بشغف وتميز.">Bringing authentic Arabian flavors to your table with passion and excellence.</p>
+                </div>
+                <div class="footer-col">
+                    <h4 data-en="Quick Links" data-ar="روابط سريعة">Quick Links</h4>
+                    <ul>
+                        <li><a href="#home" data-en="Home" data-ar="الرئيسية">Home</a></li>
+                        <li><a href="#about" data-en="About" data-ar="من نحن">About</a></li>
+                        <li><a href="full-menu.html" data-en="Menu" data-ar="القائمة">Menu</a></li>
+                        <li><a href="order.html" data-en="Order" data-ar="اطلب">Order</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4 data-en="Follow Us" data-ar="تابعنا">Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Al Sultana Restaurant. <span data-en="All rights reserved." data-ar="جميع الحقوق محفوظة.">All rights reserved.</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Menu Data
+        const menuData = [
+            {
+                id: 1,
+                nameEn: 'Lamb Kabsa',
+                nameAr: 'كبسة لحم',
+                category: 'Main Course',
+                price: 65,
+                description: 'Traditional Arabian rice dish with tender lamb, aromatic spices, and nuts',
+                image: 'https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=500'
+            },
+            {
+                id: 2,
+                nameEn: 'Shawarma Platter',
+                nameAr: 'طبق شاورما',
+                category: 'Main Course',
+                price: 45,
+                description: 'Mixed shawarma with garlic sauce, pickles, and fresh vegetables',
+                image: 'https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=500'
+            },
+            {
+                id: 3,
+                nameEn: 'Mezze Platter',
+                nameAr: 'طبق المقبلات',
+                category: 'Starters',
+                price: 35,
+                description: 'Assorted appetizers including hummus, baba ghanoush, and tabbouleh',
+                image: 'https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=500'
+            },
+            {
+                id: 4,
+                nameEn: 'Grilled Halloumi',
+                nameAr: 'حلومي مشوي',
+                category: 'Starters',
+                price: 28,
+                description: 'Golden grilled halloumi cheese with za\'atar and olive oil',
+                image: 'https://images.unsplash.com/photo-1571380401583-72ca84994796?w=500'
+            },
+            {
+                id: 5,
+                nameEn: 'Kunafa',
+                nameAr: 'كنافة',
+                category: 'Desserts',
+                price: 25,
+                description: 'Sweet cheese pastry soaked in sugar syrup, topped with pistachios',
+                image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500'
+            },
+            {
+                id: 6,
+                nameEn: 'Fresh Mint Lemonade',
+                nameAr: 'ليمونادة بالنعناع',
+                category: 'Drinks',
+                price: 15,
+                description: 'Refreshing lemonade with fresh mint leaves',
+                image: 'https://images.unsplash.com/photo-1523677011781-c91d1bbe2f9e?w=500'
+            }
+        ];
+
+        // Save menu data to localStorage
+        localStorage.setItem('menuData', JSON.stringify(menuData));
+
+        // Load menu on homepage
+        function loadHomeMenu() {
+            const menuGrid = document.getElementById('menuGrid');
+            const displayItems = menuData.slice(0, 6);
+            
+            menuGrid.innerHTML = displayItems.map(item => `
+                <div class="menu-card">
+                    <img src="${item.image}" alt="${item.nameEn}">
+                    <div class="menu-card-content">
+                        <div class="menu-card-header">
+                            <div>
+                                <h3 data-en="${item.nameEn}" data-ar="${item.nameAr}">${item.nameEn}</h3>
+                                <p class="arabic-name">${item.nameAr}</p>
+                            </div>
+                            <span class="price">$${item.price}</span>
+                        </div>
+                        <p data-en="${item.description}" data-ar="${item.description}">${item.description}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Toggle mobile menu
+        function toggleMenu() {
+            document.getElementById('navMenu').classList.toggle('active');
+        }
+
+        // Sticky navbar
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    document.getElementById('navMenu').classList.remove('active');
+                }
+            });
+        });
+
+        // Language toggle
+        let currentLang = 'en';
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'ar' : 'en';
+            document.body.classList.toggle('rtl');
+            
+            const elements = document.querySelectorAll('[data-en][data-ar]');
+            elements.forEach(el => {
+                el.textContent = el.getAttribute(`data-${currentLang}`);
+            });
+            
+            document.getElementById('langText').textContent = currentLang === 'en' ? 'عربي' : 'English';
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadHomeMenu();
+        });
+    </script>
+</body>
+</html>
