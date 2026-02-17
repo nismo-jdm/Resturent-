@@ -279,6 +279,36 @@
             color: #999;
         }
 
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #1a1a1a;
+            color: #fff;
+            padding: 14px 28px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .toast i {
+            color: #c9a961;
+            font-size: 1.1rem;
+        }
+
         @media (max-width: 968px) {
             .order-container {
                 grid-template-columns: 1fr;
@@ -318,9 +348,45 @@
         </div>
     </div>
 
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMsg">Added to cart!</span>
+    </div>
+
     <script>
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        // ── Toast helper ──────────────────────────────────────────────
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+
+        // ── Fallback menu data (used when localStorage is empty) ──────
+        const DEFAULT_MENU = [
+            { id:1,  nameEn:'Lamb Kabsa',          nameAr:'كبسة لحم',          category:'Main Course', price:65, description:'Traditional Arabian rice dish with tender lamb and aromatic spices', image:'https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=500' },
+            { id:2,  nameEn:'Shawarma Platter',     nameAr:'طبق شاورما',         category:'Main Course', price:45, description:'Mixed shawarma with garlic sauce, pickles and fresh vegetables',     image:'https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=500' },
+            { id:3,  nameEn:'Mezze Platter',        nameAr:'طبق المقبلات',       category:'Starters',    price:35, description:'Assorted appetizers: hummus, baba ghanoush and tabbouleh',          image:'https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=500' },
+            { id:4,  nameEn:'Grilled Halloumi',     nameAr:'حلومي مشوي',         category:'Starters',    price:28, description:"Golden grilled halloumi cheese with za'atar and olive oil",          image:'https://images.unsplash.com/photo-1571380401583-72ca84994796?w=500' },
+            { id:5,  nameEn:'Kunafa',               nameAr:'كنافة',             category:'Desserts',    price:25, description:'Sweet cheese pastry soaked in sugar syrup, topped with pistachios', image:'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500' },
+            { id:6,  nameEn:'Fresh Mint Lemonade',  nameAr:'ليمونادة بالنعناع',  category:'Drinks',      price:15, description:'Refreshing lemonade with fresh mint leaves',                         image:'https://images.unsplash.com/photo-1523677011781-c91d1bbe2f9e?w=500' },
+            { id:7,  nameEn:'Chicken Mandi',        nameAr:'مندي دجاج',          category:'Main Course', price:55, description:'Slow-cooked chicken with fragrant basmati rice and special spices',  image:'https://images.unsplash.com/photo-1604908177453-7462950a6a95?w=500' },
+            { id:8,  nameEn:'Falafel Wrap',         nameAr:'لفافة فلافل',        category:'Starters',    price:22, description:'Crispy falafel with tahini and vegetables in fresh saj bread',        image:'https://images.unsplash.com/photo-1593001874117-c89ccf8b5e63?w=500' },
+            { id:9,  nameEn:'Baklava',              nameAr:'بقلاوة',            category:'Desserts',    price:20, description:'Layered pastry with honey and mixed nuts',                           image:'https://images.unsplash.com/photo-1598110750624-207050c4f28c?w=500' },
+            { id:10, nameEn:'Arabic Coffee',        nameAr:'قهوة عربية',         category:'Drinks',      price:12, description:'Traditional cardamom-flavored coffee',                               image:'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=500' },
+            { id:11, nameEn:'Mixed Grill',          nameAr:'مشاوي مشكلة',        category:'Main Course', price:75, description:'Selection of grilled meats: lamb chops, kofta and chicken',          image:'https://images.unsplash.com/photo-1544025162-d76694265947?w=500' },
+            { id:12, nameEn:"Umm Ali",              nameAr:'أم علي',             category:'Desserts',    price:22, description:'Warm bread pudding with nuts and raisins',                           image:'https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=500' }
+        ];
+
+        let cart     = JSON.parse(localStorage.getItem('cart'))     || [];
         let menuData = JSON.parse(localStorage.getItem('menuData')) || [];
+
+        // Ensure menu data is always available
+        if (!menuData.length) {
+            menuData = DEFAULT_MENU;
+            localStorage.setItem('menuData', JSON.stringify(menuData));
+        }
 
         function renderMenu() {
             const menuHtml = menuData.map((item, index) => `
@@ -379,8 +445,8 @@
             // Reset quantity
             document.getElementById(`qty-${index}`).value = 1;
             
-            // Show notification
-            alert(`${item.nameEn} added to cart!`);
+            // Show toast notification instead of alert
+            showToast(`✓ ${item.nameEn} added to cart!`);
         }
 
         function removeFromCart(index) {
@@ -433,21 +499,26 @@
                     <span>Total:</span>
                     <span>$${total.toFixed(2)}</span>
                 </div>
-                <button class="checkout-btn" href="payment.html" onclick="goToCheckout()">
+                <button class="checkout-btn" id="checkoutBtn" type="button">
                     <i class="fas fa-credit-card"></i> Proceed to Checkout
                 </button>
             `;
             
             cartItemsEl.innerHTML = itemsHtml;
             cartSummaryEl.innerHTML = summaryHtml;
+
+            // Wire checkout button AFTER it is in the DOM
+            document.getElementById('checkoutBtn').addEventListener('click', goToCheckout);
         }
 
         function goToCheckout() {
+            // Re-read cart from localStorage to be absolutely sure it's current
+            cart = JSON.parse(localStorage.getItem('cart')) || [];
             if (cart.length === 0) {
-                alert('Your cart is empty!');
+                showToast('Your cart is empty!');
                 return;
             }
-            window.location.href = 'payment.html';
+            window.location.assign('payment.html');
         }
 
         // Initialize
