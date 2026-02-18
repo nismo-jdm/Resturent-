@@ -129,6 +129,26 @@
             display: block;
             margin-bottom: 0.5rem;
         }
+
+        .login-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .error-msg {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: none;
+            text-align: center;
+        }
+
+        .error-msg.show {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -145,16 +165,20 @@
             Password: admin123
         </div>
 
-        <form id="loginForm" onsubmit="login(event)">
+        <div class="error-msg" id="errorMsg">
+            <i class="fas fa-exclamation-circle"></i> Invalid credentials!
+        </div>
+
+        <form id="loginForm">
             <div class="form-group">
                 <label><i class="fas fa-user"></i> Username</label>
-                <input type="text" id="username" required>
+                <input type="text" id="username" required autocomplete="username">
             </div>
             <div class="form-group">
                 <label><i class="fas fa-lock"></i> Password</label>
-                <input type="password" id="password" required>
+                <input type="password" id="password" required autocomplete="current-password">
             </div>
-            <button type="submit" href="admin-dashboard.html" class="login-btn">
+            <button type="submit" class="login-btn" id="loginBtn">
                 <i class="fas fa-sign-in-alt"></i> Login to Dashboard
             </button>
         </form>
@@ -165,20 +189,43 @@
     </div>
 
     <script>
-        function login(event) {
+        const loginForm = document.getElementById('loginForm');
+        const loginBtn = document.getElementById('loginBtn');
+        const errorMsg = document.getElementById('errorMsg');
+        
+        loginForm.addEventListener('submit', function(event) {
             event.preventDefault();
             
-            const username = document.getElementById('username').value;
+            // Hide any previous error
+            errorMsg.classList.remove('show');
+            
+            const username = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value;
             
+            // Disable button during processing
+            loginBtn.disabled = true;
+            loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
+            
             // Simple authentication (in production, this should be server-side)
-            if (username === 'admin' && password === 'admin123') {
-                localStorage.setItem('adminLoggedIn', 'true');
-                window.location.href = 'admin-dashboard.html';
-            } else {
-                alert('Invalid credentials! Please use:\nUsername: admin\nPassword: admin123');
-            }
-        }
+            setTimeout(() => {
+                if (username === 'admin' && password === 'admin123') {
+                    localStorage.setItem('adminLoggedIn', 'true');
+                    loginBtn.innerHTML = '<i class="fas fa-check"></i> Success! Redirecting...';
+                    setTimeout(() => {
+                        window.location.assign('admin-dashboard.html');
+                    }, 500);
+                } else {
+                    errorMsg.classList.add('show');
+                    loginBtn.disabled = false;
+                    loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login to Dashboard';
+                }
+            }, 300);
+        });
+        
+        // Auto-fill demo credentials on page load (optional - for easier testing)
+        // Remove these lines in production
+        // document.getElementById('username').value = 'admin';
+        // document.getElementById('password').value = 'admin123';
     </script>
 </body>
 </html>
