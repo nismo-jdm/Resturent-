@@ -453,10 +453,14 @@
     </div>
 
     <script>
-        // Check if admin is logged in
-        if (!localStorage.getItem('adminLoggedIn')) {
-            window.location.href = 'admin-login.html';
-        }
+        // Check if admin is logged in - redirect immediately if not
+        (function checkAuth() {
+            const isLoggedIn = localStorage.getItem('adminLoggedIn');
+            if (!isLoggedIn || isLoggedIn !== 'true') {
+                window.location.replace('admin-login.html');
+                return;
+            }
+        })();
 
         let orders = JSON.parse(localStorage.getItem('orders')) || [];
         let menuData = JSON.parse(localStorage.getItem('menuData')) || [];
@@ -652,8 +656,10 @@
         }
 
         function logout() {
-            localStorage.removeItem('adminLoggedIn');
-            window.location.href = 'admin-login.html';
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('adminLoggedIn');
+                window.location.replace('admin-login.html');
+            }
         }
 
         // Initialize
